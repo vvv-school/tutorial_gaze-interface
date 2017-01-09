@@ -83,9 +83,9 @@ public:
                     px[0]=pTarget->get(0).asDouble();
                     px[1]=pTarget->get(1).asDouble();
 
-                    // track the moving target within
-                    // the camera image
+                    // track the moving target within the camera image
                     igaze->lookAtMonoPixel(0,px);   // 0: left image plane is used, 1: for right
+                    yInfo()<<"gazing at pixel: "<<px.toString(3,3);
                 }
             }
         }
@@ -137,7 +137,6 @@ public:
 
     virtual bool updateModule()
     {
-        yInfo()<<"Running happily...";
         return true;
     }
 };

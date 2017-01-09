@@ -1,27 +1,28 @@
 
 #include <cmath>
+#include <string>
 
 #include <yarp/os/Network.h>
 #include <yarp/os/LogStream.h>
 #include <yarp/os/RFModule.h>
 #include <yarp/os/Bottle.h>
-#include <yarp/os/RpcClient.h>
+#include <yarp/os/BufferedPort.h>
 #include <yarp/os/Time.h>
-
-#include <string>
+#include <yarp/sig/Vector.h>
+#include <yarp/math/Math.h>
 
 using namespace std;
 using namespace yarp::os;
+using namespace yarp::sig;
+using namespace yarp::math;
 
 
 class Launcher: public RFModule
 {
 private:
-    RpcClient port;
+    BufferedPort<Bottle> port;
     bool init;
-    double x0;
-    double y0;
-    double z0;
+    Vector x0;
     int cnt;
 
 public:
@@ -35,9 +36,10 @@ public:
             return false;
         }
 
-        x0=0.0;
-        y0=1.0;
-        z0=0.75;
+        x0.resize(3);
+        x0[0]=0.0;
+        x0[1]=1.0;
+        x0[2]=0.75;
 
         init=true;
         return true;
@@ -56,7 +58,8 @@ public:
 
     virtual bool updateModule()
     {
-        Bottle cmd,reply;
+        Bottle &cmd=port.prepare();
+        cmd.clear();
 
         if (init)
         {
@@ -64,9 +67,9 @@ public:
             cmd.addString("mk");
             cmd.addString("ssph");
             cmd.addDouble(0.03);
-            cmd.addDouble(x0);
-            cmd.addDouble(y0);
-            cmd.addDouble(z0);
+            cmd.addDouble(x0[0]);
+            cmd.addDouble(x0[1]);
+            cmd.addDouble(x0[2]);
             cmd.addDouble(1.0);
             cmd.addDouble(0.0);
             cmd.addDouble(0.0);
@@ -77,20 +80,25 @@ public:
         {
             double t=(cnt++)*getPeriod();
             double phi=2.0*M_PI*(1.0/20.0)*t;
-            double dx=0.3*cos(phi);
-            double dy=0.3*sin(phi);
-            double dz=0.3*sin(phi);
+            
+            Vector dx(3),x;
+            dx[0]=cos(phi);
+            dx[1]=sin(phi);
+            dx[2]=sin(phi);
+            x=x0+0.3*dx;
 
             cmd.addString("world");
             cmd.addString("set");
             cmd.addString("ssph");
             cmd.addInt(1);
-            cmd.addDouble(x0+dx);
-            cmd.addDouble(y0+dy);
-            cmd.addDouble(z0+dz);
-        }
+            cmd.addDouble(x[0]);
+            cmd.addDouble(x[1]);
+            cmd.addDouble(x[2]);
 
-        port.write(cmd,reply);
+            yInfo()<<"Target at "<<x.toString(3,3);
+        }
+        
+        port.writeStrict();
         return true;
     }
 };

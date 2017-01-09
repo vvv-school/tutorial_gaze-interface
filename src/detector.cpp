@@ -74,6 +74,7 @@ public:
             else
                 target.addInt(0);
 
+            yInfo()<<"Target: "<<target.toString();
             targetPort.write();
             outPort.write();
         }

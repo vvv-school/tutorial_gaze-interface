@@ -32,12 +32,6 @@
       <node>localhost</node>
   </module>
 
-  <module>
-      <name>yarp</name>
-      <parameters>read /read</parameters>
-      <node>localhost</node>
-  </module>
-
   <connection>
       <from>/icubSim/cam/left</from>
       <to>/viewer</to>
@@ -53,12 +47,6 @@
   <connection>
     <from>/detector/target</from>
     <to>/tracker/target:i</to>
-    <protocol>tcp</protocol>
-  </connection>
-
-  <connection>
-    <from>/detector/target</from>
-    <to>/read</to>
     <protocol>tcp</protocol>
   </connection>
 
