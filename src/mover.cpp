@@ -6,7 +6,7 @@
 #include <yarp/os/LogStream.h>
 #include <yarp/os/RFModule.h>
 #include <yarp/os/Bottle.h>
-#include <yarp/os/BufferedPort.h>
+#include <yarp/os/RpcClient.h>
 #include <yarp/os/Time.h>
 #include <yarp/sig/Vector.h>
 #include <yarp/math/Math.h>
@@ -20,7 +20,7 @@ using namespace yarp::math;
 class Launcher: public RFModule
 {
 private:
-    BufferedPort<Bottle> port;
+    RpcClient port;
     bool init;
     Vector x0;
     int cnt;
@@ -58,8 +58,7 @@ public:
 
     virtual bool updateModule()
     {
-        Bottle &cmd=port.prepare();
-        cmd.clear();
+        Bottle cmd,reply;
 
         if (init)
         {
@@ -98,7 +97,7 @@ public:
             yInfo()<<"Target at "<<x.toString(3,3);
         }
         
-        port.writeStrict();
+        port.write(cmd,reply);
         return true;
     }
 };
