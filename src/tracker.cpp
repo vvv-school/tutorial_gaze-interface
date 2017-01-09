@@ -61,8 +61,8 @@ public:
         // the context contains the tracking mode, the neck limits and so on.
         igaze->storeContext(&startup_context_id);
 
-        // set trajectory time:
-        igaze->setNeckTrajTime(0.8);
+        // set trajectory time
+        igaze->setNeckTrajTime(0.6);
         igaze->setEyesTrajTime(0.4);
 
         port.open("/tracker/target:i");
