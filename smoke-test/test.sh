@@ -20,9 +20,14 @@ build_dir=$(pwd)
 
 git clone --depth 1 -b master https://github.com/vvv-school/vvv-school.github.io.git helpers
 if [ $? -eq 0 ]; then
-    test_type=$(head -1 ${test_dir}/test-type)
-    ./helpers/scripts/smoke-test-${test_type}.sh $build_dir $code_dir $test_dir
-    ret=$?
+    if [ -f ${test_dir}/test-type ]; then
+        test_type=$(head -1 ${test_dir}/test-type)
+        ./helpers/scripts/smoke-test-${test_type}.sh $build_dir $code_dir $test_dir
+        ret=$?
+    else
+        echo -e "${red}test-type is missing!${nc}"
+        ret=4
+    fi
 else
     echo -e "${red}GitHub seems unreachable${nc}"
     ret=4
