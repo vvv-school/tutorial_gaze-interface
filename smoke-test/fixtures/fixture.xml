@@ -1,0 +1,53 @@
+<application>
+    <name>Fixture for Tutorial on Gaze Interface</name>
+    <description>A fixture to prepare components required for the tutorial</description>
+    <version>1.0</version>
+    <authors>
+        <author email="ugo.pattacini@iit.it">Ugo Pattacini</author>
+    </authors>
+    <module>
+        <name>iCub_SIM</name>
+        <node>testnode</node>
+    </module>    
+    <module>
+      <name>iKinGazeCtrl</name>
+      <parameters>--from configSim.ini</parameters>
+      <dependencies>
+          <port timeout="10">/icubSim/head/state:o</port>
+          <port timeout="10">/icubSim/inertial</port>
+      </dependencies>
+      <node>testnode</node>
+    </module>
+    <module>
+      <name>tutorial_gaze-interface-mover</name>
+      <dependencies>
+        <port timeout="10">/icubSim/world</port>
+      </dependencies>
+      <node>testnode</node>
+    </module>
+    <module>
+      <name>tutorial_gaze-interface-detector</name>
+      <dependencies>
+          <port timeout="10">/icubSim/cam/left</port>
+      </dependencies>
+      <node>testnode</node>
+    </module>
+    <module>
+      <name>tutorial_gaze-interface-tracker</name>
+      <dependencies>
+          <port timeout="10">/iKinGazeCtrl/rpc</port>
+          <port timeout="10">/detector/target</port>
+      </dependencies>
+      <node>testnode</node>
+    </module>
+    <connection>
+      <from>/icubSim/cam/left</from>
+      <to>/detector/image/in</to>
+      <protocol>udp</protocol>
+    </connection>
+    <connection>
+      <from>/detector/target</from>
+      <to>/tracker/target:i</to>
+      <protocol>tcp</protocol>
+    </connection>
+</application>

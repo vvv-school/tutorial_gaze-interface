@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suit name="Test Tutorial Gaze Interface">
+    <description>Testing the tutorial on the Gaze Interface</description>
+    <environment>--robotname icubSim</environment>
+    <fixture param="--fixture fixture.xml"> yarpmanager </fixture>
+
+    <test type="dll"> TestTutorialGazeInterface </test>
+</suit>
