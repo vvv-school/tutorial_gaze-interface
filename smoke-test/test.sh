@@ -20,7 +20,7 @@ build_dir=$(pwd)
 
 git clone --depth 1 -b master https://github.com/vvv-school/vvv-school.github.io.git helpers
 if [ $? -eq 0 ]; then        
-    ./helpers/scripts/smoke-test.sh $build_dir $code_dir $test_dir
+    ./helpers/scripts/smoke-test-cpp.sh $build_dir $code_dir $test_dir
     ret=$?
 else
     echo -e "${red}GitHub seems unreachable${nc}"
