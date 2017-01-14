@@ -51,7 +51,10 @@ public:
         optGaze.put("local","/tracker/gaze");
 
         if (!clientGaze.open(optGaze))
+        {
+            yError()<<"Unable to open the Gaze Controller";
             return false;
+        }
 
         // open the view
         clientGaze.view(igaze);
