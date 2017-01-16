@@ -46,7 +46,8 @@ public:
         // 2 - the gaze server iKinGazeCtrl is running and
         //     launched with the following options:
         //     --from configSim.ini
-        Property optGaze("(device gazecontrollerclient)");
+        Property optGaze;
+        optGaze.put("device","gazecontrollerclient");
         optGaze.put("remote","/iKinGazeCtrl");
         optGaze.put("local","/tracker/gaze");
 
