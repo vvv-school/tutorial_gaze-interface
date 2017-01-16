@@ -97,7 +97,7 @@ public:
 
         RTF_TEST_REPORT(Asserter::format("mean distance from the image center = %g [m]",mean_x));
         RTF_TEST_REPORT(Asserter::format("stdev distance from the image center = %g [m]",stdev_x));
-        RTF_TEST_CHECK((mean_x<20.0) && (stdev_x<10.0),"Tracking Test Passed!");
+        RTF_TEST_CHECK((mean_x<30.0) && (stdev_x<10.0),"Tracking Test Passed!");
     }
 };
 
