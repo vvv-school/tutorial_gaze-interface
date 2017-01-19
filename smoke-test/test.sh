@@ -13,7 +13,7 @@ code_dir=$(pwd)/../
 test_dir=$(pwd)
 
 if [ -d build ]; then
-    rm build -rf
+    rm -Rf build
 fi
 mkdir build && cd build
 build_dir=$(pwd)
