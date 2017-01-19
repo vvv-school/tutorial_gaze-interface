@@ -22,6 +22,7 @@
       <parameters>--from configSim.ini</parameters>
       <dependencies>
           <port timeout="20">/yarplogger</port>
+          <port timeout="20">/icubSim/torso/state:o</port>
           <port timeout="20">/icubSim/head/state:o</port>
           <port timeout="20">/icubSim/inertial</port>
       </dependencies>
