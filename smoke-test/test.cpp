@@ -40,6 +40,8 @@ public:
     /******************************************************************/
     virtual bool setup(yarp::os::Property& property)
     {
+        Time::delay(5.0);
+    
         port.open("/"+getName()+"/target:i");
         RTF_ASSERT_ERROR_IF(Network::connect("/detector/target",port.getName()),
                             "Unable to connect to target!");
@@ -62,9 +64,7 @@ public:
 
         double mean_x=0;
         double stdev_x=0;
-        int N=0;
-
-        Time::delay(5.0);
+        int N=0;        
 
         RTF_TEST_REPORT("Checking target position in the image plane");
         for (double t0=Time::now(); Time::now()-t0<10.0;)
