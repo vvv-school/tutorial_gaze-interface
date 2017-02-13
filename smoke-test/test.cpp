@@ -7,8 +7,10 @@
 #include <cmath>
 #include <algorithm>
 
-#include <rtf/yarp/YarpTestCase.h>
+#include <yarp/rtf/TestCase.h>
 #include <rtf/dll/Plugin.h>
+#include <rtf/TestAssert.h>
+
 
 #include <yarp/os/all.h>
 #include <yarp/sig/all.h>
@@ -21,14 +23,14 @@ using namespace yarp::sig;
 using namespace yarp::math;
 
 /**********************************************************************/
-class TestTutorialGazeInterface : public YarpTestCase
+class TestTutorialGazeInterface : public yarp::rtf::TestCase
 {
     BufferedPort<Bottle> port;
 
 public:
     /******************************************************************/
     TestTutorialGazeInterface() :
-        YarpTestCase("TestTutorialGazeInterface")
+        yarp::rtf::TestCase("TestTutorialGazeInterface")
     {
     }
 
