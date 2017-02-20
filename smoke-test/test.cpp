@@ -17,20 +17,19 @@
 
 using namespace std;
 using namespace RTF;
-using namespace yarp::rtf;
 using namespace yarp::os;
 using namespace yarp::sig;
 using namespace yarp::math;
 
 /**********************************************************************/
-class TestTutorialGazeInterface : public TestCase
+class TestTutorialGazeInterface : public yarp::rtf::TestCase
 {
     BufferedPort<Bottle> port;
 
 public:
     /******************************************************************/
     TestTutorialGazeInterface() :
-        TestCase("TestTutorialGazeInterface")
+        yarp::rtf::TestCase("TestTutorialGazeInterface")
     {
     }
 
