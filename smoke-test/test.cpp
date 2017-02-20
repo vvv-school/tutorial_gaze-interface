@@ -7,30 +7,30 @@
 #include <cmath>
 #include <algorithm>
 
-#include <yarp/rtf/TestCase.h>
 #include <rtf/dll/Plugin.h>
 #include <rtf/TestAssert.h>
 
-
+#include <yarp/rtf/TestCase.h>
 #include <yarp/os/all.h>
 #include <yarp/sig/all.h>
 #include <yarp/math/Math.h>
 
 using namespace std;
 using namespace RTF;
+using namespace yarp::rtf;
 using namespace yarp::os;
 using namespace yarp::sig;
 using namespace yarp::math;
 
 /**********************************************************************/
-class TestTutorialGazeInterface : public yarp::rtf::TestCase
+class TestTutorialGazeInterface : public TestCase
 {
     BufferedPort<Bottle> port;
 
 public:
     /******************************************************************/
     TestTutorialGazeInterface() :
-        yarp::rtf::TestCase("TestTutorialGazeInterface")
+        TestCase("TestTutorialGazeInterface")
     {
     }
 
