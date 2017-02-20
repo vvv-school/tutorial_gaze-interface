@@ -30,4 +30,4 @@ add_definitions(-D_USE_MATH_DEFINES)
 add_library(${PROJECT_NAME} MODULE test.cpp)
 
 # add required libraries
-link_libraries(${PROJECT_NAME} ${RTF_LIBRARIES} ${YARP_LIBRARIES} YARP::YARP_rtf)
+target_link_libraries(${PROJECT_NAME} ${RTF_LIBRARIES} ${YARP_LIBRARIES} YARP::YARP_rtf)
