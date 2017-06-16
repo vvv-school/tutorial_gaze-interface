@@ -94,7 +94,7 @@ public:
         }
 
         mean_x/=N;
-        stdev_x=sqrt(stdev_x/N-mean_x*mean_x);
+        stdev_x=sqrt(stdev_x/(N-1)-mean_x*mean_x);  // unbiased estimator
 
         RTF_TEST_REPORT(Asserter::format("mean distance from the image center = %g [m]",mean_x));
         RTF_TEST_REPORT(Asserter::format("stdev distance from the image center = %g [m]",stdev_x));
