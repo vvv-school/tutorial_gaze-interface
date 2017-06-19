@@ -11,7 +11,6 @@
 #include <yarp/os/RFModule.h>
 #include <yarp/os/RateThread.h>
 #include <yarp/os/BufferedPort.h>
-#include <yarp/os/Time.h>
 #include <yarp/sig/Vector.h>
 
 #include <yarp/dev/Drivers.h>
