@@ -25,15 +25,14 @@ class Detector
 public:
     void loop()
     {
-        ImageOf<PixelRgb> *image= imagePort.read();  // read an image
+        ImageOf<PixelRgb> *image=imagePort.read();  // read an image
 
         if (image!=NULL)
         {
             // check we actually got something
-            ImageOf<PixelRgb> &outImage = outPort.prepare(); //get an output image
+            ImageOf<PixelRgb> &outImage=outPort.prepare(); // get an output image
             outImage=*image;
 
-            //printf("We got an image of size %dx%d\n", image->width(), image->height());
             double xMean = 0;
             double yMean = 0;
             int ct = 0;
