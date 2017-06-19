@@ -28,7 +28,7 @@
 
   <module>
       <name>yarpview</name>
-      <parameters>--name /viewer --x 10 --y 10</parameters>
+      <parameters>--name /viewer --x 10 --y 10 --compact</parameters>
       <node>localhost</node>
   </module>
 
