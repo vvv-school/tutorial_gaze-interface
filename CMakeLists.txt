@@ -25,15 +25,15 @@ add_definitions(-D_USE_MATH_DEFINES)
 
 include_directories(${YARP_INCLUDE_DIRS})
 
-# detector
-add_executable(${PROJECT_NAME}-detector ${CMAKE_SOURCE_DIR}/src/detector.cpp)
-target_link_libraries(${PROJECT_NAME}-detector ${YARP_LIBRARIES})
-install(TARGETS ${PROJECT_NAME}-detector DESTINATION bin)
-
 # mover
 add_executable(${PROJECT_NAME}-mover ${CMAKE_SOURCE_DIR}/src/mover.cpp)
 target_link_libraries(${PROJECT_NAME}-mover ${YARP_LIBRARIES})
 install(TARGETS ${PROJECT_NAME}-mover DESTINATION bin)
+
+# detector
+add_executable(${PROJECT_NAME}-detector ${CMAKE_SOURCE_DIR}/src/detector.cpp)
+target_link_libraries(${PROJECT_NAME}-detector ${YARP_LIBRARIES})
+install(TARGETS ${PROJECT_NAME}-detector DESTINATION bin)
 
 # tracker
 add_executable(${PROJECT_NAME}-tracker ${CMAKE_SOURCE_DIR}/src/tracker.cpp)
