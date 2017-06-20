@@ -21,7 +21,7 @@ using namespace yarp::sig;
 using namespace yarp::math;
 
 
-class Launcher: public RFModule
+class Mover: public RFModule
 {
 private:
     RpcClient port;
@@ -120,6 +120,6 @@ int main(int argc, char *argv[])
     ResourceFinder rf;
     rf.configure(argc,argv);
 
-    Launcher launcher;
-    return launcher.runModule(rf);
+    Mover mover;
+    return mover.runModule(rf);
 }
