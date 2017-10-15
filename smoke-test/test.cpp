@@ -42,8 +42,8 @@ public:
     virtual bool setup(yarp::os::Property& property)
     {
         port.open("/"+getName()+"/target:i");
-        RTF_ASSERT_ERROR_IF(Network::connect("/detector/target",port.getName()),
-                            "Unable to connect to target!");
+        RTF_ASSERT_ERROR_IF_FALSE(Network::connect("/detector/target",port.getName()),
+                                  "Unable to connect to target!");
 
         return true;
     }
