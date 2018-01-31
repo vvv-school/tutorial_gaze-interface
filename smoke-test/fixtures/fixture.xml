@@ -8,7 +8,7 @@
     <module>
         <name>iCub_SIM</name>
         <node>testnode</node>
-    </module>    
+    </module>
     <module>
         <name>iKinGazeCtrl</name>
         <parameters>--from configSim.ini</parameters>
@@ -17,6 +17,9 @@
             <port timeout="10">/icubSim/head/state:o</port>
             <port timeout="10">/icubSim/inertial</port>
         </dependencies>
+        <ensure>
+            <wait>2</wait>
+        </ensure>
         <node>testnode</node>
     </module>
     <module>
@@ -24,6 +27,9 @@
         <dependencies>
             <port timeout="10">/icubSim/world</port>
         </dependencies>
+        <ensure>
+            <wait>3</wait>
+        </ensure>
         <node>testnode</node>
     </module>
     <module>
@@ -31,6 +37,9 @@
         <dependencies>
             <port timeout="10">/icubSim/cam/left</port>
         </dependencies>
+        <ensure>
+            <wait>3</wait>
+        </ensure>
         <node>testnode</node>
     </module>
     <module>
@@ -39,6 +48,9 @@
             <port timeout="10">/iKinGazeCtrl/rpc</port>
             <port timeout="10">/detector/target</port>
         </dependencies>
+        <ensure>
+            <wait>3</wait>
+        </ensure>
         <node>testnode</node>
     </module>
     <connection>
