@@ -4,12 +4,13 @@
 //
 // Author: Ugo Pattacini - <ugo.pattacini@iit.it>
 
+#include <cstdlib>
 #include <string>
 
 #include <yarp/os/Network.h>
 #include <yarp/os/LogStream.h>
 #include <yarp/os/RFModule.h>
-#include <yarp/os/RateThread.h>
+#include <yarp/os/PeriodicThread.h>
 #include <yarp/os/BufferedPort.h>
 #include <yarp/sig/Vector.h>
 
@@ -23,7 +24,7 @@ using namespace yarp::dev;
 using namespace yarp::sig;
 
 
-class CtrlThread: public RateThread
+class CtrlThread: public PeriodicThread
 {
 protected:
     PolyDriver     clientGaze;
@@ -35,7 +36,7 @@ protected:
     BufferedPort<Bottle> port;
 
 public:
-    CtrlThread() : RateThread(1000) { }
+    CtrlThread() : PeriodicThread(1.0) { }
 
     virtual bool threadInit()
     {
@@ -121,8 +122,8 @@ public:
         // retrieve command line options
         double period=rf.check("period",Value(0.02)).asDouble();
 
-        // set the thread rate that is an integer accounting for [ms]
-        thr.setRate(int(period*1000.0));
+        // set the thread period in [s]
+        thr.setPeriod(period);
 
         return thr.start();
     }
@@ -152,7 +153,7 @@ int main(int argc, char *argv[])
     if (!yarp.checkNetwork())
     {
         yError()<<"YARP doesn't seem to be available";
-        return 1;
+        return EXIT_FAILURE;
     }
 
     ResourceFinder rf;
