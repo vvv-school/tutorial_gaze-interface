@@ -7,29 +7,29 @@
 #include <cmath>
 #include <algorithm>
 
-#include <rtf/dll/Plugin.h>
-#include <rtf/TestAssert.h>
+#include <robottestingframework/dll/Plugin.h>
+#include <robottestingframework/TestAssert.h>
 
-#include <yarp/rtf/TestCase.h>
+#include <yarp/robottestingframework/TestCase.h>
 #include <yarp/os/all.h>
 #include <yarp/sig/all.h>
 #include <yarp/math/Math.h>
 
 using namespace std;
-using namespace RTF;
+using namespace robottestingframework;
 using namespace yarp::os;
 using namespace yarp::sig;
 using namespace yarp::math;
 
 /**********************************************************************/
-class TestTutorialGazeInterface : public yarp::rtf::TestCase
+class TestTutorialGazeInterface : public yarp::robottestingframework::TestCase
 {
     BufferedPort<Bottle> port;
 
 public:
     /******************************************************************/
     TestTutorialGazeInterface() :
-        yarp::rtf::TestCase("TestTutorialGazeInterface")
+        yarp::robottestingframework::TestCase("TestTutorialGazeInterface")
     {
     }
 
@@ -42,7 +42,7 @@ public:
     virtual bool setup(yarp::os::Property& property)
     {
         port.open("/"+getName()+"/target:i");
-        RTF_ASSERT_ERROR_IF_FALSE(Network::connect("/detector/target",port.getName()),
+        ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(Network::connect("/detector/target",port.getName()),
                                   "Unable to connect to target!");
 
         return true;
@@ -67,7 +67,7 @@ public:
         
         Time::delay(5.0);
 
-        RTF_TEST_REPORT("Checking target position in the image plane");
+        ROBOTTESTINGFRAMEWORK_TEST_REPORT("Checking target position in the image plane");
         for (double t0=Time::now(); Time::now()-t0<10.0;)
         {
             Bottle *pTarget=port.read(false);
@@ -96,10 +96,10 @@ public:
         mean_x/=N;
         stdev_x=sqrt(stdev_x/N-mean_x*mean_x);
 
-        RTF_TEST_REPORT(Asserter::format("mean distance from the image center = %g [m]",mean_x));
-        RTF_TEST_REPORT(Asserter::format("stdev distance from the image center = %g [m]",stdev_x));
-        RTF_TEST_CHECK((mean_x<30.0) && (stdev_x<10.0),"Tracking Test Passed!");
+        ROBOTTESTINGFRAMEWORK_TEST_REPORT(Asserter::format("mean distance from the image center = %g [m]",mean_x));
+        ROBOTTESTINGFRAMEWORK_TEST_REPORT(Asserter::format("stdev distance from the image center = %g [m]",stdev_x));
+        ROBOTTESTINGFRAMEWORK_TEST_CHECK((mean_x<30.0) && (stdev_x<10.0),"Tracking Test Passed!");
     }
 };
 
-PREPARE_PLUGIN(TestTutorialGazeInterface)
+ROBOTTESTINGFRAMEWORK_PREPARE_PLUGIN(TestTutorialGazeInterface)
