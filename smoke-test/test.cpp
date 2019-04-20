@@ -98,7 +98,7 @@ public:
 
         ROBOTTESTINGFRAMEWORK_TEST_REPORT(Asserter::format("mean distance from the image center = %g [m]",mean_x));
         ROBOTTESTINGFRAMEWORK_TEST_REPORT(Asserter::format("stdev distance from the image center = %g [m]",stdev_x));
-        ROBOTTESTINGFRAMEWORK_TEST_CHECK((mean_x<30.0) && (stdev_x<10.0),"Tracking Test Passed!");
+        ROBOTTESTINGFRAMEWORK_TEST_CHECK((mean_x<40.0) && (stdev_x<10.0),"Tracking Test Passed!");
     }
 };
 
