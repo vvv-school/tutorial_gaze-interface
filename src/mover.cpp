@@ -52,6 +52,12 @@ public:
 
     virtual bool close()
     {
+		Bottle cmd,reply;
+		cmd.addString("world");
+		cmd.addString("del");
+		cmd.addString("all");
+		port.write(cmd,reply);
+
         port.close();
         return true;
     }
