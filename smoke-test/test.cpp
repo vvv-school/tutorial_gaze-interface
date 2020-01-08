@@ -42,8 +42,8 @@ public:
     virtual bool setup(yarp::os::Property& property)
     {
         port.open("/"+getName()+"/target:i");
-        ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(Network::connect("/detector/target",port.getName()),
-                                  "Unable to connect to target!");
+        if (!Network::connect("/detector/target",port.getName()))
+            ROBOTTESTINGFRAMEWORK_ASSERT_FAIL("Unable to connect to target!");
 
         return true;
     }
