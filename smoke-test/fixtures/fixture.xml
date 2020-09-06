@@ -53,9 +53,19 @@
         </ensure>
         <node>testnode</node>
     </module>
+    <module>
+        <name>yarpview</name>
+        <parameters>--name /viewer --x 10 --y 10 --compact</parameters>
+        <node>testnode</node>
+    </module>
     <connection>
         <from>/icubSim/cam/left</from>
         <to>/detector/image/in</to>
+        <protocol>udp</protocol>
+    </connection>
+    <connection>
+        <from>/detector/image/out</from>
+        <to>/viewer</to>
         <protocol>udp</protocol>
     </connection>
     <connection>
