@@ -6,7 +6,12 @@
         <author email="ugo.pattacini@iit.it">Ugo Pattacini</author>
     </authors>
     <module>
-        <name>iCub_SIM</name>
+        <name>gzserver</name>
+        <parameters>tutorial_gaze-interface.sdf</parameters>
+        <node>testnode</node>
+    </module>
+    <module>
+        <name>gzclient</name>
         <node>testnode</node>
     </module>
     <module>
@@ -23,19 +28,9 @@
         <node>testnode</node>
     </module>
     <module>
-        <name>tutorial_gaze-interface-mover</name>
-        <dependencies>
-            <port timeout="10">/icubSim/world</port>
-        </dependencies>
-        <ensure>
-            <wait>3</wait>
-        </ensure>
-        <node>testnode</node>
-    </module>
-    <module>
         <name>tutorial_gaze-interface-detector</name>
         <dependencies>
-            <port timeout="10">/icubSim/cam/left</port>
+            <port timeout="10">/icubSim/cam/left/rgbImage:o</port>
         </dependencies>
         <ensure>
             <wait>3</wait>
@@ -59,7 +54,7 @@
         <node>testnode</node>
     </module>
     <connection>
-        <from>/icubSim/cam/left</from>
+        <from>/icubSim/cam/left/rgbImage:o</from>
         <to>/detector/image/in</to>
         <protocol>udp</protocol>
     </connection>

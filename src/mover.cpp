@@ -4,129 +4,57 @@
 //
 // Author: Ugo Pattacini - <ugo.pattacini@iit.it>
 
-#include <cstdlib>
 #include <cmath>
-#include <string>
 
-#include <yarp/os/Network.h>
-#include <yarp/os/LogStream.h>
-#include <yarp/os/RFModule.h>
-#include <yarp/os/Bottle.h>
-#include <yarp/os/RpcClient.h>
-#include <yarp/sig/Vector.h>
-#include <yarp/math/Math.h>
+#include <gazebo/common/Plugin.hh>
+#include <gazebo/physics/World.hh>
+#include <gazebo/physics/Model.hh>
+#include <gazebo/common/Events.hh>
+#include <ignition/math/Pose3.hh>
 
-using namespace std;
-using namespace yarp::os;
-using namespace yarp::sig;
-using namespace yarp::math;
+#include <boost/bind.hpp>
 
+namespace gazebo {
 
-class Mover: public RFModule
+/******************************************************************************/
+class Mover : public gazebo::WorldPlugin
 {
-private:
-    RpcClient port;
-    bool init;
-    Vector x0;
-    int cnt;
+    gazebo::physics::WorldPtr world;
+    gazebo::physics::ModelPtr ball;
+    gazebo::event::ConnectionPtr renderer_connection;
+    ignition::math::Pose3d init_pose;
+    double t0;
+
+    /**************************************************************************/
+    void onWorld() {
+        const auto t = world->SimTime().Double() - t0;
+        const auto phi = 2. * M_PI * (t / 10.);
+        
+        const auto x = .4 * std::cos(phi);
+        const auto y = .2 * std::sin(phi);
+        const auto z = y;
+
+        const auto& p = init_pose.Pos();
+        const auto& q = init_pose.Rot();
+        ignition::math::Pose3d pose(p.X() + x, p.Y() + y, p.Z() + z,
+                                    q.W(), q.X(), q.Y(), q.Z());
+        ball->SetWorldPose(pose);
+    }
 
 public:
-    virtual bool configure(ResourceFinder &rf)
-    {
-        port.open("/mover");
-        if (!Network::connect(port.getName(),"/icubSim/world"))
-        {
-            yError()<<"Unable to connect to the world!";
-            port.close();
-            return false;
-        }
+    /**************************************************************************/
+    void Load(gazebo::physics::WorldPtr world, sdf::ElementPtr) {
+        this->world = world;
+        ball = world->ModelByName("ball");
 
-        x0.resize(3);
-        x0[0]=0.0;
-        x0[1]=1.0;
-        x0[2]=0.75;
+        auto bind = boost::bind(&Mover::onWorld, this);
+        renderer_connection = gazebo::event::Events::ConnectWorldUpdateBegin(bind);
 
-        init=true;
-        return true;
-    }
-
-    virtual bool close()
-    {
-		Bottle cmd,reply;
-		cmd.addString("world");
-		cmd.addString("del");
-		cmd.addString("all");
-		port.write(cmd,reply);
-
-        port.close();
-        return true;
-    }
-
-    virtual double getPeriod()
-    {
-        return 0.1;
-    }
-
-    virtual bool updateModule()
-    {
-        Bottle cmd,reply;
-
-        if (init)
-        {
-            cmd.addString("world");
-            cmd.addString("mk");
-            cmd.addString("ssph");
-            cmd.addDouble(0.03);
-            cmd.addDouble(x0[0]);
-            cmd.addDouble(x0[1]);
-            cmd.addDouble(x0[2]);
-            cmd.addDouble(1.0);
-            cmd.addDouble(0.0);
-            cmd.addDouble(0.0);
-            cnt=0;
-            init=false;
-        }
-        else
-        {
-            double t=(cnt++)*getPeriod();
-            double phi=2.0*M_PI*(1.0/20.0)*t;
-            
-            Vector dx(3),x;
-            dx[0]=cos(phi);
-            dx[1]=sin(phi);
-            dx[2]=sin(phi);
-            x=x0+0.3*dx;
-
-            cmd.addString("world");
-            cmd.addString("set");
-            cmd.addString("ssph");
-            cmd.addInt(1);
-            cmd.addDouble(x[0]);
-            cmd.addDouble(x[1]);
-            cmd.addDouble(x[2]);
-
-            yInfo()<<"Target at "<<x.toString(3,3);
-        }
-        
-        port.write(cmd,reply);
-        return true;
+        init_pose = ball->WorldPose();
+        t0 = world->SimTime().Double();
     }
 };
 
-
-
-int main(int argc, char *argv[])
-{
-    Network yarp;
-    if (!yarp.checkNetwork())
-    {
-        yError()<<"YARP doesn't seem to be available";
-        return EXIT_FAILURE;
-    }
-
-    ResourceFinder rf;
-    rf.configure(argc,argv);
-
-    Mover mover;
-    return mover.runModule(rf);
 }
+
+GZ_REGISTER_WORLD_PLUGIN(gazebo::Mover)
