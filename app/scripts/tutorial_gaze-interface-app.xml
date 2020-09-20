@@ -4,15 +4,9 @@
 
   <dependencies>
       <port>/yarplogger</port>
-      <port>/icubSim/cam/left</port>
+      <port>/icubSim/cam/left/rgbImage:o</port>
       <port>/iKinGazeCtrl/rpc</port>
   </dependencies>
-
-  <module>
-      <name>tutorial_gaze-interface-mover</name>
-      <environment>YARP_FORWARD_LOG_ENABLE=1</environment>
-      <node>localhost</node>
-  </module>
 
   <module>
       <name>tutorial_gaze-interface-detector</name>
@@ -33,7 +27,7 @@
   </module>
 
   <connection>
-      <from>/icubSim/cam/left</from>
+      <from>/icubSim/cam/left/rgbImage:o</from>
       <to>/detector/image/in</to>
       <protocol>udp</protocol>
   </connection>

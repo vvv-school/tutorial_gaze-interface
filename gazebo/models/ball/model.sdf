@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<sdf version="1.7">
+  <model name="ball">
+    <static>false</static>
+    <link name="link">
+        <visual name="visual">
+            <geometry>
+                <sphere>
+                    <radius> 0.03 </radius>
+                </sphere>
+            </geometry>
+            <material>
+                <script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Red</name>
+                </script>
+        </material>
+        </visual>
+    </link>
+  </model>
+</sdf>
