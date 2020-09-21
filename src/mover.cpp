@@ -45,7 +45,7 @@ public:
     /**************************************************************************/
     void Load(gazebo::physics::WorldPtr world, sdf::ElementPtr) {
         this->world = world;
-        ball = world->ModelByName("ball");
+        ball = world->ModelByName("tutorial_gaze-interface-ball");
 
         auto bind = boost::bind(&Mover::onWorld, this);
         renderer_connection = gazebo::event::Events::ConnectWorldUpdateBegin(bind);
