@@ -14,7 +14,7 @@
                     <uri>file://media/materials/scripts/gazebo.material</uri>
                     <name>Gazebo/Red</name>
                 </script>
-        </material>
+            </material>
         </visual>
     </link>
   </model>
