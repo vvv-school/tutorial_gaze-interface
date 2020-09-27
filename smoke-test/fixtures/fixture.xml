@@ -16,7 +16,7 @@
     </module>
     <module>
         <name>iKinGazeCtrl</name>
-        <parameters>--from configSim.ini</parameters>
+        <parameters>--context gazeboCartesianControl --from iKinGazeCtrl.ini</parameters>
         <dependencies>
             <port timeout="10">/icubSim/torso/state:o</port>
             <port timeout="10">/icubSim/head/state:o</port>

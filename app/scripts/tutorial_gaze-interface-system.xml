@@ -25,7 +25,7 @@
 
   <module>
       <name>iKinGazeCtrl</name>
-      <parameters>--from configSim.ini</parameters>
+      <parameters>--context gazeboCartesianControl --from iKinGazeCtrl.ini</parameters>
       <dependencies>
           <port timeout="20">/yarplogger</port>
           <port timeout="20">/icubSim/torso/state:o</port>
