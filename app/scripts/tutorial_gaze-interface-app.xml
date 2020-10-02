@@ -29,13 +29,13 @@
   <connection>
       <from>/icubSim/cam/left/rgbImage:o</from>
       <to>/detector/image/in</to>
-      <protocol>udp</protocol>
+      <protocol>unix_stream</protocol>
   </connection>
   
   <connection>
       <from>/detector/image/out</from>
       <to>/viewer</to>
-      <protocol>udp</protocol>
+      <protocol>unix_stream</protocol>
   </connection>
 
   <connection>
