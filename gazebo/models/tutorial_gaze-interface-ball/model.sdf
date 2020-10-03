@@ -1,8 +1,9 @@
 <?xml version="1.0" ?>
 <sdf version="1.7">
   <model name="tutorial_gaze-interface-ball">
-    <static>true</static>
+    <static>false</static>
     <link name="link">
+        <gravity>0</gravity>
         <visual name="visual">
             <geometry>
                 <sphere>
