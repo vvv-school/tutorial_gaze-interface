@@ -4,6 +4,7 @@
 //
 // Author: Ugo Pattacini - <ugo.pattacini@iit.it>
 
+#include <functional>
 #include <cmath>
 
 #include <gazebo/common/Plugin.hh>
@@ -11,8 +12,6 @@
 #include <gazebo/physics/Model.hh>
 #include <gazebo/common/Events.hh>
 #include <ignition/math/Pose3.hh>
-
-#include <boost/bind.hpp>
 
 namespace gazebo {
 
@@ -43,11 +42,11 @@ class Mover : public gazebo::WorldPlugin
 
 public:
     /**************************************************************************/
-    void Load(gazebo::physics::WorldPtr world, sdf::ElementPtr) {
+    void Load(gazebo::physics::WorldPtr world, sdf::ElementPtr) override {
         this->world = world;
         ball = world->ModelByName("tutorial_gaze-interface-ball");
 
-        auto bind = boost::bind(&Mover::onWorld, this);
+        auto bind = std::bind(&Mover::onWorld, this);
         renderer_connection = gazebo::event::Events::ConnectWorldUpdateBegin(bind);
 
         init_pose = ball->WorldPose();
