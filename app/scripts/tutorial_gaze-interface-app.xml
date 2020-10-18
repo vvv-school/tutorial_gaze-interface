@@ -10,13 +10,13 @@
 
   <module>
       <name>tutorial_gaze-interface-detector</name>
-      <environment>YARP_FORWARD_LOG_ENABLE=1</environment>
+      <environment>YARP_FORWARD_LOG_ENABLE=1;YARP_CLOCK=/clock</environment>
       <node>localhost</node>
   </module>
 
   <module>
       <name>tutorial_gaze-interface-tracker</name>
-      <environment>YARP_FORWARD_LOG_ENABLE=1</environment>
+      <environment>YARP_FORWARD_LOG_ENABLE=1;YARP_CLOCK=/clock</environment>
       <node>localhost</node>
   </module>
 

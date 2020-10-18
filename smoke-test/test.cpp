@@ -45,12 +45,14 @@ public:
         if (!Network::connect("/detector/target",port.getName()))
             ROBOTTESTINGFRAMEWORK_ASSERT_FAIL("Unable to connect to target!");
 
+        Time::useNetworkClock("/clock");
         return true;
     }
 
     /******************************************************************/
     virtual void tearDown()
     {
+        Time::useSystemClock();
         port.close();
     }
 

@@ -7,7 +7,7 @@
     </authors>
     <module>
         <name>gzserver</name>
-        <parameters>tutorial_gaze-interface.sdf</parameters>
+        <parameters>-s libgazebo_yarp_clock.so tutorial_gaze-interface.sdf</parameters>
         <node>testnode</node>
     </module>
     <module>
@@ -25,6 +25,7 @@
         <ensure>
             <wait>2</wait>
         </ensure>
+        <environment>YARP_CLOCK=/clock</environment>
         <node>testnode</node>
     </module>
     <module>
@@ -35,6 +36,7 @@
         <ensure>
             <wait>3</wait>
         </ensure>
+        <environment>YARP_CLOCK=/clock</environment>
         <node>testnode</node>
     </module>
     <module>
@@ -46,6 +48,7 @@
         <ensure>
             <wait>3</wait>
         </ensure>
+        <environment>YARP_CLOCK=/clock</environment>
         <node>testnode</node>
     </module>
     <module>
