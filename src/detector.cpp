@@ -70,14 +70,14 @@ public:
 
             Bottle &target=targetPort.prepare();
             target.clear();
-            target.addDouble(xMean);
-            target.addDouble(yMean);
+            target.addFloat64(xMean);
+            target.addFloat64(yMean);
 
             //threshold on the size of the object we found
             if (ct>(image->width()/20)*(image->height()/20))
-                target.addInt(1);
+                target.addInt32(1);
             else
-                target.addInt(0);
+                target.addInt32(0);
 
             yInfo()<<"Target: "<<target.toString();
             targetPort.write();
@@ -98,9 +98,9 @@ public:
     {
         Bottle &target=targetPort.prepare();
         target.clear();
-        target.addDouble(0);
-        target.addDouble(0);
-        target.addInt(0);
+        target.addFloat64(0.);
+        target.addFloat64(0.);
+        target.addInt32(0);
 
         targetPort.writeStrict();
         outPort.write();

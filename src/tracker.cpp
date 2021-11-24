@@ -81,11 +81,11 @@ public:
         {
             if (pTarget->size()>2)
             {
-                if (pTarget->get(2).asInt()!=0)
+                if (pTarget->get(2).asInt32()!=0)
                 {
                     Vector px(2);
-                    px[0]=pTarget->get(0).asDouble();
-                    px[1]=pTarget->get(1).asDouble();
+                    px[0]=pTarget->get(0).asFloat64();
+                    px[1]=pTarget->get(1).asFloat64();
 
                     // track the moving target within the camera image
                     igaze->lookAtMonoPixel(0,px);   // 0: left image plane is used, 1: for right
@@ -120,7 +120,7 @@ public:
     virtual bool configure(ResourceFinder &rf)
     {
         // retrieve command line options
-        double period=rf.check("period",Value(0.02)).asDouble();
+        double period=rf.check("period",Value(0.02)).asFloat64();
 
         // set the thread period in [s]
         thr.setPeriod(period);

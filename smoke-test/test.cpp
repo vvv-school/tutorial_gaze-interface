@@ -77,11 +77,11 @@ public:
             {
                 if (pTarget->size()>2)
                 {
-                    if (pTarget->get(2).asInt()!=0)
+                    if (pTarget->get(2).asInt32()!=0)
                     {
                         Vector px(2);
-                        px[0]=pTarget->get(0).asDouble();
-                        px[1]=pTarget->get(1).asDouble();
+                        px[0]=pTarget->get(0).asFloat64();
+                        px[1]=pTarget->get(1).asFloat64();
 
                         double d=norm(c-px);
                         mean_x+=d;
