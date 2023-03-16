@@ -20,7 +20,6 @@
         <dependencies>
             <port timeout="10">/icubSim/torso/state:o</port>
             <port timeout="10">/icubSim/head/state:o</port>
-            <port timeout="10">/icubSim/inertial</port>
         </dependencies>
         <ensure>
             <wait>2</wait>
